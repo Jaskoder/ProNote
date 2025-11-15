@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap-icons/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+    <link rel="manifest" href="./assets/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Noto+Sans:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <title> Pro Notes </title>
+</head>
+
+<body>
+    <div class="app">
+        <div class="nav-bar open">
+            <button id="toggle"><i class="bi bi-grid"></i></button>
+            <ul>
+                <li><i class="bi bi-house"></i><a id="a" href="#">Home</a></li>
+                <li><i class="bi bi-pen"></i><a href="#">Notes</a></li>
+                <li><i class="bi bi-clipboard"></i><a href="#">Editor</a></li>
+                <li><i class="bi bi-gear"></i><a href="#">Settings</a></li>
+            </ul>
+        </div>
+        <div class="view">
+            <div class="main"></div>
+            <div class="side-view">
+                <div class="header">
+                    <span class="logo"><span class="imp">Pro</span>Note</span>
+                    <button id="theme-btn"><i class="bi bi-sun-fill"></i><span
+                            class="tool-tip">Light-Mode</span></button>
+                </div>
+                <button id="addbtn"><i class="bi bi-plus"></i><span>Add Note</span></button>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search a note">
+                </div>
+                <div class="list-wrapper"></div>
+            </div>
+        </div>
+        <div class="overlay"></div>
+        <script type="module" src="./scripts/app.js"></script>
+</body>
+
+</html>
