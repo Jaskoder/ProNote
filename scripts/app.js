@@ -18,15 +18,12 @@ const toggleModebutton = document.querySelector('#theme-btn');
 const addButton = document.querySelector('#addbtn');
 const navBarLinks = document.querySelectorAll('.nav-bar ul li')
 
-let EDITOR;
-let TOOLBAR;
-
 function createEditor(note) {
     const editor = createElement('div').classList('editor');
     const editorTextView = createElement('div').classList('text-view');
     const editorTitleWrapper = createElement('div').innerHTML(`<p contenteditable></p>`).classList('title');
     const editorContentWrapper = createElement('div').innerHTML(`<p contenteditable></p>`).classList('content');
-    const editorToolBar = TOOLBAR ? TOOLBAR : createToolBar(note);
+    const editorToolBar = createToolBar(note);
 
     const editorTextViewComponent = createComponent(editorTextView, [editorTitleWrapper, editorContentWrapper])
     const editorComponent = createComponent(
@@ -34,7 +31,6 @@ function createEditor(note) {
         [editorTextViewComponent, editorToolBar]
     );
 
-    EDITOR = editorComponent;
     return editorComponent;
 
 }
@@ -83,18 +79,14 @@ function createToolBar(note) {
         createElement('button')
             .id('save')
             .click(async () => {
-                let noteClone = note;
                 const { title, content } = resolveTitleAndContent();
-                if (noteClone.id) {
-                    noteClone.lastOpen = Date.now();
-                    noteClone.title = title;
-                    noteClone.content = content;
-                } else {
-                    noteClone = new Note(title, content);
-                }
+                
+                note.title = title;
+                note.content = content;
+                note.lastOpen = Date.now();
 
                 try {
-                    await insertNote(noteClone);
+                    await insertNote(note);
                     await renderSavedNotesList();
                     createAlertBox('Note saved successfully', 'success')
                 } catch (e) {
@@ -112,7 +104,6 @@ function createToolBar(note) {
     );
 
     const toolBarComponent = createComponent(toolbar, [...textStylesButtons, ...textColorButtons, ...textCaseButtons, saveButton, closeButton]);
-    TOOLBAR = toolBarComponent;
     return toolBarComponent;
 }
 
@@ -168,15 +159,16 @@ function createAlertBox(message, type='info') {
     setTimeout(() => appElement.removeChild(alertboxComponent), 3000);
 }
 
-function initEditor(note = {}) {
-    const editor = EDITOR ? EDITOR : createEditor(note);
+function initEditor(note = new Note('Edit title...', 'Edit content...')) {
+    const editor = createEditor(note);
     const titleElement = editor.querySelector('.title p');
     const contentElement = editor.querySelector('.content p');
 
     titleElement.textContent = note?.title || 'Title';
     contentElement.innerHTML = note?.content || 'Start tying';
-
+    mainView.innerHTML = '';
     mainView.appendChild(editor);
+    console.log(note);
 }
 
 async function renderSavedNotesList() {
@@ -252,11 +244,11 @@ function resolveTitleAndContent() {
 }
 
 function closeEditor() {
-    const hasEditor = mainView.querySelector('.editor') !== null;
-    if (EDITOR && hasEditor) {
+    const editor = mainView.querySelector('.editor');
+    if (editor) {
         createPromptBox("You are about to close editor unsaved work would get lost", (choice) => {
             if (choice) {
-                mainView.removeChild(EDITOR);
+                mainView.removeChild(editor);
             }
         });
     }
@@ -287,7 +279,7 @@ function applySavedTheme() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    addButton.addEventListener('click', initEditor);
+    addButton.addEventListener('click', () => initEditor());
     toggleButton.addEventListener('click', toggleNavBar);
     toggleModebutton.addEventListener('click', toogleColorMode);
     navBarLinks.forEach((l) => {
