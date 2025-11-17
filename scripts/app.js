@@ -292,7 +292,8 @@ async function renderSavedNotesTable() {
         mainView.appendChild(tableComponent);
 
     } catch (e) {
-
+        createAlertBox("An error occured", 'error');
+        console.log(e, e.message);
     }
 }
 
@@ -414,3 +415,4 @@ window.addEventListener('DOMContentLoaded', () => {
     renderSavedNotesList();
     renderSavedNotesTable()
 })
+
