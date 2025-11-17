@@ -14,11 +14,11 @@
     --primary-color: hsl(220, 60%, 50%);
     --secondary-color: hsl(220, 40%, 40%);
 
-    --color-gray-500: hsl(220, 12%, 65%);
-    --color-gray-400: hsl(220, 12%, 70%);
-    --color-gray-300: hsl(220, 12%, 80%);
-    --color-gray-200: hsl(220, 12%, 90%);
-    --color-gray-100: hsl(220, 12%, 95%);
+    --color-gray-500: hsl(190, 12%, 65%);
+    --color-gray-400: hsl(190, 12%, 70%);
+    --color-gray-300: hsl(190, 12%, 80%);
+    --color-gray-200: hsl(190, 12%, 90%);
+    --color-gray-100: hsl(190, 12%, 95%);
 
     --color-dark-500: hsl(220, 31%, 5%);
     --color-dark-400: hsl(220, 31%, 10%);
@@ -59,7 +59,8 @@
     --red-color: var(--light-red-color);
     --green-bg: var(--light-green-bg);
     --green-color: var(--light-green-color);
-    --overlay-bg : var(--overlay-light-mode-bg)
+    --overlay-bg : var(--overlay-light-mode-bg);
+    --border-color : var(--color-dark-100);
 }
 
 .dark-mode {
@@ -73,6 +74,7 @@
     --green-bg: var(--dark-green-bg);
     --green-color: var(--dark-green-color);
     --overlay-bg : var(--overlay-dark-mode-bg);
+    --border-color : var(--color-gray-100);
 }
 
 
@@ -311,6 +313,7 @@ body:has(.dark-mode) {
 .imp {
     font-weight: 800;
     font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
 }
 
 .header .imp {
@@ -627,7 +630,7 @@ body:has(.dark-mode) {
 
 .side-view .search-bar {
 
-    width: 70%;
+    width: 90%;
     margin: 1rem auto;
 
     input {
@@ -637,6 +640,157 @@ body:has(.dark-mode) {
         border: none;
         width: 100%;
         color: var(--text-color);
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+.notes-table {
+    background: var(--second-background-color);
+    height: 97vh;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: var(--radius-medium);
+
+    * {
+        color: var(--text-color);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .heading-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 4rem;
+
+        h3 {
+            font-weight: 500;
+            text-align: center;
+            margin: 0 1rem;
+            color: var(--secondary-color);
+        }
+
+        input {
+            padding: 0.6rem 1rem;
+            width: 35%;
+            border-radius: var(--radius-medium);
+            border: none;
+            outline: none;
+            background: var(--third-background-color);
+        }
+    }
+
+    .t-header {
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--text-color);
+
+        * {
+            font-weight: 500;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .t-header {
+        div span {
+            font-weight: bold;
+        }
+    }
+
+    .t-header, .t-body .item {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+    }
+
+    .title {
+        grid-column: span 3;
+    }
+    .actions {
+        grid-column: span 2;
+    }
+    .created-time, .update-time {
+        grid-column: span 2;
+    }
+
+    .t-body .created-time, .t-body .update-time {
+        span {
+            font-size: 0.8rem;
+        }
+    }
+
+    .item {
+        padding: 1rem 0;
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title {
+            justify-content: flex-start;
+            overflow-x: hidden;
+        }
+
+        .number {
+            span {
+                width: 35px;
+                height: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--third-background-color);
+                border-radius: var(--radius-full);
+            }
+        }
+
+        .actions {
+            justify-content: space-between;
+            button {
+                width: 45%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 0.3rem;
+                border-radius: var(--radius-medium);
+                font-family: 'Roboto', sans-serif;
+
+                .tool-tip {
+                    font-size: 0.7rem;
+                }
+            }
+
+            .edit {
+                background: var(--green-bg);
+                
+                i, span {
+                    color: var(--green-color);
+                }
+            }
+            .delete {
+                background: var(--red-bg);
+                i, span {
+                    color: var(--red-color);
+                }
+            }
+
+            button:active {
+                transform: scale(0.9);
+            }
+        }
+    }
+    .item:not(:last-child) {
+        border-bottom: 1px solid var(--third-background-color);
+    }
+
+    .t-body .title {
+        span {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
     }
 }
 
